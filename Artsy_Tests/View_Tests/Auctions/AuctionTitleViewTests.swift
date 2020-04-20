@@ -17,7 +17,7 @@ class AuctionTitleViewSpec: QuickSpec {
 
         beforeEach {
             ARUserManager.stubAndLoginWithUsername()
-            viewModel = Test_SaleViewModel(sale: sale, saleArtworks: [], promotedSaleArtworks: [], bidders: [qualifiedBidder], lotStandings: [])
+            viewModel = Test_SaleViewModel(sale: sale, saleArtworks: [], promotedSaleArtworks: [], bidders: [qualifiedBidder], lotStandings: [], me: User())
         }
 
         sharedExamples("title view") { (context: SharedExampleContext) in
@@ -36,7 +36,7 @@ class AuctionTitleViewSpec: QuickSpec {
             }
 
             it("looks good with a not registered registration status") {
-                viewModel = Test_SaleViewModel(sale: sale, saleArtworks: [], promotedSaleArtworks: [], bidders: [], lotStandings: [])
+                viewModel = Test_SaleViewModel(sale: sale, saleArtworks: [], promotedSaleArtworks: [], bidders: [], lotStandings: [], me: User())
                 let subject = AuctionTitleView(viewModel: viewModel, delegate: delegate, fullWidth: fullWidth, showAdditionalInformation: true, titleTextAlignment: .left)
                 subject.bounds.size.width = 400
 
@@ -66,7 +66,7 @@ class AuctionTitleViewSpec: QuickSpec {
                     "requireIdentityVerification": true,
                 ]
                 let idVerifySale = try! Sale(dictionary: saleDict, error: Void())
-                let idVerifyViewModel = Test_SaleViewModel(sale: idVerifySale, saleArtworks: [], promotedSaleArtworks: [], bidders: [], lotStandings: [])
+                let idVerifyViewModel = Test_SaleViewModel(sale: idVerifySale, saleArtworks: [], promotedSaleArtworks: [], bidders: [], lotStandings: [], me: User())
                 let subject = AuctionTitleView(viewModel: idVerifyViewModel, delegate: delegate, fullWidth: fullWidth, showAdditionalInformation: true, titleTextAlignment: .left)
                 expect(subject).to( haveValidSnapshot() )
             }
@@ -88,7 +88,7 @@ class AuctionTitleViewSpec: QuickSpec {
                     "requireIdentityVerification": true,
                 ]
                 let idVerifySale = try! Sale(dictionary: saleDict, error: Void())
-                let idVerifyViewModel = Test_SaleViewModel(sale: idVerifySale, saleArtworks: [], promotedSaleArtworks: [], bidders: [], lotStandings: [])
+                let idVerifyViewModel = Test_SaleViewModel(sale: idVerifySale, saleArtworks: [], promotedSaleArtworks: [], bidders: [], lotStandings: [], me: User())
                 let subject = AuctionTitleView(viewModel: idVerifyViewModel, delegate: delegate, fullWidth: fullWidth, showAdditionalInformation: true, titleTextAlignment: .left)
                 expect(subject).to( haveValidSnapshot() )
             }
