@@ -190,7 +190,8 @@
     "*.@(ts|tsx)": [
       "tslint -c tslint.json --fix",
       "yarn prettier-write --",
-      "git add"
+      "git add",
+      "node scripts/strictness-migration.js check-staged"
     ],
     "*.@(json|md)": [
       "yarn prettier-write --"
