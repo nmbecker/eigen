@@ -10,6 +10,7 @@ export const filterArtworksParams = (appliedFilters: FilterArray) => {
 
   appliedFilters.forEach(appliedFilterOption => {
     const paramMapping = filterTypeToParam[appliedFilterOption.filterType]
+    // @ts-ignore STRICTNESS_MIGRATION
     const paramFromFilterType = paramMapping[appliedFilterOption.value]
     filterParams[appliedFilterOption.filterType] = paramFromFilterType
   })
@@ -26,7 +27,9 @@ const getChangedParams = (appliedFilters: FilterArray) => {
 
   appliedFilters.forEach(appliedFilterOption => {
     const paramMapping = filterTypeToParam[appliedFilterOption.filterType]
+    // @ts-ignore STRICTNESS_MIGRATION
     const paramFromFilterType = paramMapping[appliedFilterOption.value]
+    // @ts-ignore STRICTNESS_MIGRATION
     filterParams[appliedFilterOption.filterType] = paramFromFilterType
   })
 
@@ -34,7 +37,10 @@ const getChangedParams = (appliedFilters: FilterArray) => {
   return Object.keys(filterParams).length === 0 ? defaultParams : filterParams
 }
 
-export const changedFiltersParams = (currentFilterParams, selectedFilterOptions: FilterArray) => {
+export const changedFiltersParams = (
+  currentFilterParams: any /* STRICTNESS_MIGRATION */,
+  selectedFilterOptions: FilterArray
+) => {
   const selectedFilterParams = getChangedParams(selectedFilterOptions)
   const changedFilters = {}
 
@@ -43,12 +49,16 @@ export const changedFiltersParams = (currentFilterParams, selectedFilterOptions:
    *  add filter option to changedFilters.
    */
   forOwn(getChangedParams(selectedFilterOptions), (_value, filterType) => {
+    // @ts-ignore STRICTNESS_MIGRATION
     if (currentFilterParams[filterType] === selectedFilterParams[filterType]) {
       const omitted = omit(selectedFilterParams, [filterType])
+      // @ts-ignore STRICTNESS_MIGRATION
       if (omitted[filterType]) {
+        // @ts-ignore STRICTNESS_MIGRATION
         changedFilters[filterType] = omitted[filterType]
       }
     } else {
+      // @ts-ignore STRICTNESS_MIGRATION
       changedFilters[filterType] = selectedFilterParams[filterType]
     }
   })

@@ -35,7 +35,7 @@ export const CollectionArtworks: React.FC<{
     return <CollectionZeroState id={collection.id} slug={collection.slug} />
   }
 
-  return artworks && <InfiniteScrollArtworksGrid connection={artworks} loadMore={relay.loadMore} />
+  return artworks ? <InfiniteScrollArtworksGrid connection={artworks} loadMore={relay.loadMore} /> : null
 }
 
 export const CollectionArtworksFragmentContainer = createPaginationContainer(

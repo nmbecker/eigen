@@ -3,6 +3,7 @@ import { FairsRail_fairsModule } from "__generated__/FairsRail_fairsModule.graph
 import React, { Component } from "react"
 import { View } from "react-native"
 import { createFragmentContainer, graphql } from "react-relay"
+// @ts-ignore STRICTNESS_MIGRATION
 import styled from "styled-components/native"
 
 import ImageView from "lib/Components/OpaqueImageView/OpaqueImageView"
@@ -21,7 +22,7 @@ interface Props {
 
 type FairItem = FairsRail_fairsModule["results"][0]
 
-export class FairsRail extends Component<Props, null> {
+export class FairsRail extends Component<Props> {
   render() {
     return (
       <View>
@@ -37,42 +38,61 @@ export class FairsRail extends Component<Props, null> {
             // be cautious to avoid crashes if this assumption is broken.
             const artworkImageURLs = take(
               concat(
+                // @ts-ignore STRICTNESS_MIGRATION
                 [result.image.url],
+                // @ts-ignore STRICTNESS_MIGRATION
                 result.followedArtistArtworks.edges.map(edge => edge.node.image.url),
+                // @ts-ignore STRICTNESS_MIGRATION
                 result.otherArtworks.edges.map(edge => edge.node.image.url)
               ),
               3
             )
+            // @ts-ignore STRICTNESS_MIGRATION
             const location = result.location?.city || result.location?.country
             return (
               <CardRailCard
+                // @ts-ignore STRICTNESS_MIGRATION
                 key={result.slug}
+                // @ts-ignore STRICTNESS_MIGRATION
                 onPress={() => Switchboard.presentNavigationViewController(this, `${result.slug}?entity=fair`)}
               >
                 <View>
                   <ArtworkImageContainer>
-                    <ImageView width={ARTWORKS_HEIGHT} height={ARTWORKS_HEIGHT} imageURL={artworkImageURLs[0]} />
+                    <ImageView
+                      width={ARTWORKS_HEIGHT}
+                      height={ARTWORKS_HEIGHT}
+                      // @ts-ignore STRICTNESS_MIGRATION
+                      imageURL={artworkImageURLs[0]}
+                    />
                     <Division />
                     <View>
                       <ImageView
                         width={ARTWORKS_HEIGHT / 2}
                         height={ARTWORKS_HEIGHT / 2}
+                        // @ts-ignore STRICTNESS_MIGRATION
                         imageURL={artworkImageURLs[1]}
                       />
                       <Division horizontal />
                       <ImageView
                         width={ARTWORKS_HEIGHT / 2}
                         height={ARTWORKS_HEIGHT / 2}
+                        // @ts-ignore STRICTNESS_MIGRATION
                         imageURL={artworkImageURLs[2]}
                       />
                     </View>
                   </ArtworkImageContainer>
                   <MetadataContainer>
                     <Sans numberOfLines={1} weight="medium" size="3t">
-                      {result.name}
+                      {
+                        // @ts-ignore STRICTNESS_MIGRATION
+                        result.name
+                      }
                     </Sans>
                     <Sans numberOfLines={1} size="3t" color="black60" data-test-id="card-subtitle">
-                      {result.exhibitionPeriod}
+                      {
+                        // @ts-ignore STRICTNESS_MIGRATION
+                        result.exhibitionPeriod
+                      }
                       {Boolean(location) && `  •  ${location}`}
                     </Sans>
                   </MetadataContainer>
@@ -89,7 +109,7 @@ export class FairsRail extends Component<Props, null> {
 // Default is a vertical division
 export const Division = styled.View<{ horizontal?: boolean }>`
   border: 1px solid white;
-  ${({ horizontal }) => (horizontal ? "height" : "width")}: 1px;
+  ${({ horizontal }: any /* STRICTNESS_MIGRATION */) => (horizontal ? "height" : "width")}: 1px;
 `
 
 const ArtworkImageContainer = styled.View`

@@ -18,6 +18,7 @@ const MOCK_CONTEXT: () => FlatListRequiredContext = () => ({
 })
 
 export const StickyTabPageFlatListContext = React.createContext<FlatListRequiredContext>(
+  // @ts-ignore STRICTNESS_MIGRATION
   process.env.NODE_ENV === "test" ? MOCK_CONTEXT() : null
 )
 

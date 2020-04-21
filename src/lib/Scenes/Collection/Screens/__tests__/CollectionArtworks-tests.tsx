@@ -26,6 +26,7 @@ beforeEach(() => {
   }
 })
 
+// @ts-ignore STRICTNESS_MIGRATION
 const getWrapper = async marketingCollection => {
   return await renderRelayTree({
     Component: () => {
@@ -34,6 +35,7 @@ const getWrapper = async marketingCollection => {
           <ArtworkFilterContext.Provider
             value={{
               state,
+              // @ts-ignore STRICTNESS_MIGRATION
               dispatch: null,
             }}
           >
@@ -70,7 +72,9 @@ describe("CollectionArtworks", () => {
 
 describe("filterArtworksParams", () => {
   it("returns the default", () => {
+    // @ts-ignore STRICTNESS_MIGRATION
     const appliedFilters = []
+    // @ts-ignore STRICTNESS_MIGRATION
     expect(filterArtworksParams(appliedFilters)).toEqual({ sort: "-decayed_merch", medium: "*" })
   })
 

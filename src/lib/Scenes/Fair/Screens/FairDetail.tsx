@@ -31,6 +31,7 @@ interface State {
   extraData?: { animatedValue: { height: number } }
   width: number | null
 }
+// @ts-ignore STRICTNESS_MIGRATION
 const track: Track<Props, State> = _track
 
 @screenTrack<Props>(props => ({
@@ -46,7 +47,9 @@ export class FairDetail extends React.Component<Props, State> {
     width: null,
   }
 
+  // @ts-ignore STRICTNESS_MIGRATION
   UNSAFE_componentWillReceiveProps(nextProps) {
+    // @ts-ignore STRICTNESS_MIGRATION
     if (this.props.fair.shows.edges.length !== nextProps.fair.shows.edges.length) {
       this.updateSections()
     }
@@ -61,6 +64,7 @@ export class FairDetail extends React.Component<Props, State> {
     const { isActive } = fair
     const sections = []
 
+    // @ts-ignore STRICTNESS_MIGRATION
     const coords = fair.location.coordinates
     if (coords && coords.lat && coords.lng) {
       sections.push({
@@ -73,12 +77,14 @@ export class FairDetail extends React.Component<Props, State> {
       })
     }
 
+    // @ts-ignore STRICTNESS_MIGRATION
     if (shouldGoStraightToWebsite(this.props.fair) || shouldShowFairMoreInfo(this.props.fair)) {
       sections.push({
         type: "information",
       })
     }
 
+    // @ts-ignore STRICTNESS_MIGRATION
     if (shouldShowFairBMWArtActivationLink(this.props.fair)) {
       sections.push({
         type: "bmwArtActivation",
@@ -105,13 +111,17 @@ export class FairDetail extends React.Component<Props, State> {
         },
       })
 
+      // @ts-ignore STRICTNESS_MIGRATION
       fair.shows.edges.forEach(showData => {
+        // @ts-ignore STRICTNESS_MIGRATION
         const showArtworks = showData.node.artworks
+        // @ts-ignore STRICTNESS_MIGRATION
         if (showArtworks && showArtworks.edges.length) {
           sections.push({
             type: "booth",
             showIndex: boothCount,
             data: {
+              // @ts-ignore STRICTNESS_MIGRATION
               show: showData.node,
             },
           })
@@ -124,6 +134,7 @@ export class FairDetail extends React.Component<Props, State> {
       })
     }
 
+    // @ts-ignore STRICTNESS_MIGRATION
     this.setState({ sections, boothCount })
   }
 
@@ -133,7 +144,9 @@ export class FairDetail extends React.Component<Props, State> {
   }
 
   onViewMoreInfoPressed = () => {
+    // @ts-ignore STRICTNESS_MIGRATION
     if (shouldGoStraightToWebsite(this.props.fair)) {
+      // @ts-ignore STRICTNESS_MIGRATION
       SwitchBoard.presentNavigationViewController(this, this.props.fair.organizer.website)
     } else {
       SwitchBoard.presentNavigationViewController(this, `/fair/${this.props.fair.slug}/info`)
@@ -144,6 +157,7 @@ export class FairDetail extends React.Component<Props, State> {
     SwitchBoard.presentNavigationViewController(this, `/fair/${this.props.fair.slug}/bmw-sponsored-content`)
   }
 
+  // @ts-ignore STRICTNESS_MIGRATION
   renderItem = ({ item: { data, type, showIndex } }) => {
     switch (type) {
       case "location":
@@ -159,7 +173,14 @@ export class FairDetail extends React.Component<Props, State> {
         const renderSeparator = this.state.boothCount - 1 > showIndex ? true : false
         return (
           <>
-            <FairBoothPreview {...data} Component={this} width={this.state.width - 40} />
+            <FairBoothPreview
+              {...data}
+              Component={this}
+              width={
+                // @ts-ignore STRICTNESS_MIGRATION
+                this.state.width - 40
+              }
+            />
             {!!renderSeparator && <Separator mt={2} />}
           </>
         )
@@ -244,6 +265,7 @@ const Loading = () => (
 )
 
 function eventProps(actionName: Schema.ActionNames, actionType: Schema.ActionTypes = Schema.ActionTypes.Tap) {
+  // @ts-ignore STRICTNESS_MIGRATION
   return props => ({
     action_name: actionName,
     action_type: actionType,

@@ -2,6 +2,7 @@ import { ArrowLeftIcon, Box, CheckIcon, Flex, Sans, Serif, space } from "@artsy/
 import React, { useContext } from "react"
 import { FlatList, TouchableOpacity } from "react-native"
 import NavigatorIOS from "react-native-navigator-ios"
+// @ts-ignore STRICTNESS_MIGRATION
 import styled from "styled-components/native"
 import { ArtworkFilterContext, MediumOption, useSelectedOptionsDisplay } from "../../utils/ArtworkFiltersStore"
 import { BackgroundFill, OptionListItem } from "../FilterModal"

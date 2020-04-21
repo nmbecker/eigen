@@ -1,4 +1,5 @@
 import { Box, CheckIcon, Theme } from "@artsy/palette"
+// @ts-ignore STRICTNESS_MIGRATION
 import { mount } from "enzyme"
 import React from "react"
 import { FakeNavigator as MockNavigator } from "../../../../lib/Components/Bidding/__tests__/Helpers/FakeNavigator"
@@ -20,12 +21,14 @@ describe("Sort Options Screen", () => {
     }
   })
 
+  // @ts-ignore STRICTNESS_MIGRATION
   const MockSortScreen = ({ initialState }) => {
     return (
       <Theme>
         <ArtworkFilterContext.Provider
           value={{
             state: initialState,
+            // @ts-ignore STRICTNESS_MIGRATION
             dispatch: null,
           }}
         >
@@ -35,7 +38,9 @@ describe("Sort Options Screen", () => {
     )
   }
 
+  // @ts-ignore STRICTNESS_MIGRATION
   const selectedSortOption = component => {
+    // @ts-ignore STRICTNESS_MIGRATION
     return component.find(InnerOptionListItem).filterWhere(item => item.find(Box).length > 0)
   }
 
